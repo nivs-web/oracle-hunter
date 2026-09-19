@@ -62,6 +62,14 @@ git push -u origin main
   Actions 탭 → 왼쪽 `oracle-free-tier-hunt` 옆에 "This workflow has been disabled" 표시를
   보면 됩니다. 다시 켜고 싶으면 같은 자리에서 "Enable workflow" 를 누르면 됩니다.
 
+## 60일 넘게 걸려도 괜찮은가?
+
+커뮤니티 사례를 보면 자리 잡는 데 **1~3개월** 걸리는 경우도 흔합니다. 문제는
+GitHub가 **저장소에 60일 동안 커밋이 하나도 없으면 예약(cron)을 자동으로 꺼버린다**는
+점입니다 — 서버를 못 잡아서가 아니라 이 규칙 때문에 먼저 멈추면 억울하니,
+`.github/workflows/keepalive.yml`이 매달 1일·15일에 빈 커밋을 하나씩 남겨서
+저장소를 계속 "살아있는" 상태로 유지합니다. 따로 신경 쓸 필요 없이 자동으로 돕니다.
+
 ## 사양을 바꾸고 싶다면
 
 `.github/workflows/hunt.yml` 맨 아래 `SHAPE` / `OCPUS` / `MEMORY_GB` / `BOOT_VOLUME_GB` 를

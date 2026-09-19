@@ -1,0 +1,28 @@
+name: keep-repo-alive
+
+# GitHub는 저장소에 60일 동안 아무 움직임(커밋)도 없으면, 예약(cron)이 걸린
+# 워크플로를 자동으로 꺼버린다. 오라클 자리는 몇 주~몇 달 걸릴 수도 있으니,
+# 60일보다 훨씬 촘촘한 주기로 빈 커밋을 하나씩 남겨서 "이 저장소는 살아있다"고
+# GitHub에 알려준다. 이게 없으면 서버를 못 잡아서가 아니라 이 안전장치가 없어서
+# 먼저 멈추는 억울한 상황이 생길 수 있다.
+on:
+  schedule:
+    - cron: '0 0 1,15 * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 빈 커밋 하나 남기기(예약이 자동으로 꺼지지 않게)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit --allow-empty -m "chore: 예약(cron) 자동 비활성화 방지용 커밋"
+          git push
