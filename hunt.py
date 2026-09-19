@@ -58,10 +58,13 @@ def write_summary(text):
         pass
 
 
+DEFAULT_NOTIFY_TO = "opioo84@gmail.com"  # GMAIL_TO 를 안 정해두면 여기로 간다
+
+
 def send_mail(subject, body):
     user = os.environ.get("GMAIL_USER", "").strip()
     pw = os.environ.get("GMAIL_APP_PASSWORD", "").strip()
-    to = os.environ.get("GMAIL_TO", user).strip()
+    to = os.environ.get("GMAIL_TO", "").strip() or user or DEFAULT_NOTIFY_TO
     if not user or not pw:
         log("메일 설정이 없어 알림 메일은 건너뜁니다(선택 사항이라 문제 없음).")
         return

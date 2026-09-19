@@ -34,7 +34,7 @@
 |---|---|
 | `GMAIL_USER` | `opioo84@gmail.com` |
 | `GMAIL_APP_PASSWORD` | 서재 서버에 쓰던 것과 같은 지메일 앱 비밀번호(공유기의 `/jffs/.mylib_mail_pass`) |
-| `GMAIL_TO` | 받을 주소 (안 넣으면 `GMAIL_USER` 로 감) |
+| `GMAIL_TO` | 받을 주소 (**안 넣어도 됨 — 기본값이 `opioo84@gmail.com`으로 고정되어 있음**) |
 
 메일을 안 넣어도 문제없습니다 — 성공하면 저장소의 **Actions 탭 → 해당 실행 → Summary** 에
 "🎉 오라클 서버 생성 성공!" 이라고 크게 뜹니다.
