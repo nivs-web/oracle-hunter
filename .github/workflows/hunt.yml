@@ -1,0 +1,56 @@
+name: oracle-free-tier-hunt
+
+# 10분마다 한 번씩 자동으로 시도한다. 오라클이 너무 잦은 요청을 싫어하니
+# (RATE_LIMIT) 너무 짧게 잡지 않는다. 급하면 위 "Actions" 탭에서
+# "Run workflow" 버튼으로 지금 바로 한 번 실행해 볼 수도 있다.
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch: {}
+
+# 겹쳐 돌면 같은 시도를 두 번 하는 셈이라 하나만 돌게 막는다.
+concurrency:
+  group: oracle-hunt
+  cancel-in-progress: false
+
+jobs:
+  hunt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: 저장소 내려받기(hunt.py 포함)
+        uses: actions/checkout@v4
+
+      - name: 오라클 API 키 파일로 복원
+        run: |
+          mkdir -p "$HOME/.oci"
+          printf '%s' "${{ secrets.OCI_PRIVATE_KEY }}" > "$HOME/.oci/key.pem"
+          chmod 600 "$HOME/.oci/key.pem"
+
+      - name: 파이썬 설치
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: oci SDK 설치
+        run: pip install --quiet oci
+
+      - name: 시도
+        env:
+          OCI_USER_OCID: ${{ secrets.OCI_USER_OCID }}
+          OCI_FINGERPRINT: ${{ secrets.OCI_FINGERPRINT }}
+          OCI_TENANCY_OCID: ${{ secrets.OCI_TENANCY_OCID }}
+          OCI_REGION: ${{ secrets.OCI_REGION }}
+          OCI_KEY_FILE: /home/runner/.oci/key.pem
+          OCI_COMPARTMENT_ID: ${{ secrets.OCI_COMPARTMENT_ID }}
+          OCI_SUBNET_ID: ${{ secrets.OCI_SUBNET_ID }}
+          SSH_PUBLIC_KEY: ${{ secrets.SSH_PUBLIC_KEY }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GMAIL_TO: ${{ secrets.GMAIL_TO }}
+          # 필요하면 아래도 Secrets 로 바꿔서 조절 가능(지금은 기본값 사용)
+          SHAPE: VM.Standard.A1.Flex
+          OCPUS: '1'
+          MEMORY_GB: '6'
+          BOOT_VOLUME_GB: '50'
+        run: python hunt.py

@@ -1,0 +1,8 @@
+# 실수로라도 이 폴더에 열쇠 파일을 복사해 넣는 경우를 대비한 안전장치.
+# (정상적으로는 전부 GitHub Secrets 에만 있고, 이 폴더 안에는 없어야 한다)
+*.pem
+*.key
+*.key.pub
+key.pem
+SUCCESS.txt
+__pycache__/
