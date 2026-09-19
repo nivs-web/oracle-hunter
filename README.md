@@ -1,7 +1,7 @@
 # 오라클 헌터 (GitHub Actions 판)
 
 `C:\down\.ssh\oci_auto_create.py` 와 똑같은 로직입니다. 다른 점 하나 —
-**내 PC를 안 켜 둬도** 10분마다 GitHub 서버가 대신 시도합니다.
+**내 PC를 안 켜 둬도** 5분마다 GitHub 서버가 대신 시도합니다.
 
 실제로 켜서 확인해봤습니다: 지금(도쿄 리전) 여전히 자리가 없습니다 —
 2주 동안 겪으신 것과 같은 "Out of capacity" 입니다. 스크립트 문제가
@@ -54,7 +54,7 @@ git push -u origin main
 ## 4. 확인
 
 - 저장소 **Actions** 탭에 들어가면 `oracle-free-tier-hunt` 워크플로가 보입니다.
-- 10분마다 자동으로 돕니다. 지금 바로 한 번 시켜보고 싶으면
+- 5분마다 자동으로 돕니다. 지금 바로 한 번 시켜보고 싶으면
   Actions 탭 → 왼쪽 `oracle-free-tier-hunt` 클릭 → **Run workflow** 버튼.
 - 성공하면 Summary 에 뜨고(+메일 설정했으면 메일도), **예약(cron)은 그 실행이 끝나면
   자동으로 꺼집니다** — 따로 손댈 필요 없습니다(이미 있는 서버에 또 만들려다
