@@ -56,9 +56,11 @@ git push -u origin main
 - 저장소 **Actions** 탭에 들어가면 `oracle-free-tier-hunt` 워크플로가 보입니다.
 - 10분마다 자동으로 돕니다. 지금 바로 한 번 시켜보고 싶으면
   Actions 탭 → 왼쪽 `oracle-free-tier-hunt` 클릭 → **Run workflow** 버튼.
-- 성공하면 Summary 에 뜨고(+메일 설정했으면 메일도), **그 즉시 Actions 예약을 꺼 두세요**
-  (Actions 탭 → `...` 메뉴 → Disable workflow) — 계속 두면 이미 있는 서버에
-  또 만들려다 "한도 초과" 오류만 반복됩니다.
+- 성공하면 Summary 에 뜨고(+메일 설정했으면 메일도), **예약(cron)은 그 실행이 끝나면
+  자동으로 꺼집니다** — 따로 손댈 필요 없습니다(이미 있는 서버에 또 만들려다
+  "한도 초과" 오류만 반복되는 것을 막기 위한 처리입니다). 확인하고 싶으면
+  Actions 탭 → 왼쪽 `oracle-free-tier-hunt` 옆에 "This workflow has been disabled" 표시를
+  보면 됩니다. 다시 켜고 싶으면 같은 자리에서 "Enable workflow" 를 누르면 됩니다.
 
 ## 사양을 바꾸고 싶다면
 

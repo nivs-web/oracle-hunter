@@ -175,16 +175,16 @@ def main():
                 "**다음 할 일**\n"
                 "1. 오라클 콘솔 → Compute → Instances 에서 공인 IP 확인\n"
                 "2. `ssh -i ssh-key-....key ubuntu@<공인IP>` 로 접속\n"
-                "3. 성공했으니 이 저장소의 Actions 예약(cron)은 꺼도 됩니다 "
-                "(계속 두면 두 번째 인스턴스를 또 만들려다 한도 초과 오류만 반복됩니다)\n"
+                "3. (자동 처리됨) 이 저장소의 Actions 예약(cron)은 이 실행이 끝나면 "
+                "자동으로 꺼집니다 — 따로 안 꺼도 됩니다\n"
             )
             write_summary(summary)
             send_mail(
                 "[오라클 헌터] 서버 생성 성공!",
                 f"인스턴스가 생성되었습니다.\n\nInstance ID: {instance.id}\nAD: {ad}\n리전: {region}\n\n"
                 "오라클 콘솔에서 공인 IP를 확인해 접속하세요.\n"
-                "성공했으니 GitHub 저장소의 Actions 예약을 꺼 두세요(Settings 아님 — "
-                "Actions 탭에서 워크플로 비활성화).",
+                "GitHub 저장소의 Actions 예약은 이 실행이 끝나면 자동으로 꺼집니다 — "
+                "따로 안 꺼도 됩니다.",
             )
             print("HUNT_RESULT=success")
             return 0
